@@ -1,0 +1,30 @@
+# jemdoc: menu{MENU}{index.html}
+= Ioannis Papapanagiotou Website
+
+
+~~~
+== Preferred Contact
+- Email: ipapapa at ncsu dot edu (preferred)
+~~~
+{}{img_left}{Ioannis1.jpg}{Ioannis}{WIDTHpx}{HEIGHTpx}{people.engr.ncsu.edu/ipapapa}
+
+== Education
+- PhD in Electrical & Computer Engineering, NC State University (2012)
+- PhD in Operations Research, NC State University (2012)
+- MSc in Computer Performance Engineering, from Electrical & Computer Engineering, NC State University (2009)
+- Dipl. Ing in Electrical & Computer Engineering, University of Patras (5-years degree - 2006)
+
+== Research Interests
+- Elasticity & Scalability in Cloud Computing
+- Data Redundancy Elimination (Deduplication) and WAN Optimization,
+- Mobile Network Design & Dimensioning, 
+- Data Analytics & Simulation.
+
+== Status 
+I am currently affiliated with IBM Emerging Technology Institute.
+
+I have been working on research projects with IBM TJ Watson Research Center. During my graduate studies, I participated in projects with Cisco Edge Router Business Unit, Time Warner Cable, and ITng Institute. 
+I have also spent a short period in VTT Research Institute in Finland, and in the University of Patras working on the Quality of Server in wireless networks (WiFi, WiMAX and LTE).
+
+# jemdoc: analytics{UA-8122507}
+

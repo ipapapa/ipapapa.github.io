@@ -1,0 +1,50 @@
+# jemdoc: menu{MENU}{other.html}
+
+= Experience (Summary)
+- *Purdue University*
+-- Assistant Professor at the department of Computer & Information Technology (2013-now)
+- *IBM* 
+-- Emerging Technology Institute Solutions Developer (2012-2013)
+-- Research Partner on Mobile data analytics and deduplication (2011-2012)
+-- Intern with IBM Research TJ Watson Research Center (2010-2011)
+- *North Carolina State University*
+-- Research Assistant in several projects related to Network design and implications of traffic patterns (2008-2010 and summer 2011)
+-- Teaching Assistant in undergrad and grad courses (2007-2009)
+- *Technical Chamber of Greece*
+-- worked on the development of educational material for training Greek professional engineers on the installation of metro-Wifi networks (summer 2009)
+- *Gnomonas Tutoring, Greece* 
+-- Instructor on Signal & Systems and Digital Signal Processing undergrad Computer Science courses (Spring 2007)
+- *University of Patras*
+-- Research Assistant with responsibilities as a Network designer for Metro Wifi Networks (2006-2007)
+
+== Talks (other than papers)
+- "[http://www.ece.ncsu.edu/calendar/archive/20132/year/2012 Data Redundancy Elimination in Wireless Networks]", NCSU, Raleigh NC, Jan. 2012 
+- "Byte Caching in Wireless Networks", IBM TJ Watson Research Center, NY USA, Dec. 2011
+- "Aggregation Design Methodologies for Multiplay Architectures", CISCO Webex Seminar, May 2010.
+- "Networked 3D Virtual Computing for Collaborative Environments in Science and Education: Towards VCL 3.0", 2nd Int Conference on the Virtual Computing Initiative (ICVCI 2), pp.
+68-75, IBM NC USA, 2009.
+- "Modeling Broadband Aggregation Architecture for Emerging and Future Traffic Patterns", Hot topic presentation on the 2nd IEEE Workshop on Enabling the Future Oriented Internet,
+co-located with IEEE GLOBECOM 2008, New Orleans LA USA.
+
+== Graduate Research Projects
+
+=== NC State University
+- "Modeling the Impact of emerging traffic patterns in Wired and Wireless architectures", funded by Time Warner Cable,  2010-2011
+- "Netflow based traffic characterization", funded by Institute of Next Generation IT Systems ([http://www.itng.ncsu.edu/ ITng]), 2009-2010
+- "Modeling Broadband Aggregation for emerging traffic patterns", funded by Cisco Systems, 2008-2009
+- "Establishing a 3D collaborative environment for the course of the College of Engineering", summer 2008.
+
+=== University of Patras
+- "Design of citywide wireless network (Metro WiFi) for the municipality of Igoumenitsa", Greece (population: 15000), Implementation budget 200K Euro, 2006-2007
+- "Techical tutorial on the deployment and installation of indoor and outdoor WiFi networks", Trained 80 employes of the Hellenica Telecommunications Organization (OTE S.A.), 2006
+- "[http://www.telemedicine.upatras.gr/Satinfo.htm Intervational Radiological Procedures via EUTELSAT]", worked with the Telemedicine Unit, University Hospital of Patras.  [http://www.telemedicine.upatras.gr/figures_Sat.htm photos] [http://www.scivee.tv/node/3710 TV]
+
+
+== Reports
+
+. I. Papapanagiotou and S.A. Kotsopoulos, "Development and Installation of Wireless Local Area Networks", educational material delivered to the Technical Chamber of Greece (TEE) for training professonal enginees, July 2009 (in Greek)
+. I. Papapanagiotou and M. Devetsikiotis, "[http://people.engr.ncsu.edu/ipapapa/Files/TA%20Report.pdf A Comparison of 3D immersive worlds for teaching and learning of Distance Education Students]", Technical Report delivered to the Engineering Online - College of Engineering, NC State University, March 2008
+. I. Papapanagiotou, "[http://people.engr.ncsu.edu/ipapapa/Files/WiFiStudy.pdf Study of the placement and specifications of the wireless access platform for the implementation of the Wireless Metropolitan Area Network in the Municipality of Igoumenitsa]", Technical Report delivered to the Municipality of Igoumenitsa, Greece, January 2008 (in Greek - total proposed budget 200K €)
+. I. Papapanagiotou, M. Tsagkaropoulos, and D. Toumpakaris, "Studies and Installation of Wireless Local Area Networks", technical manual delivered to OTE S.A, March 2007 (~80pages - in Greek)
+
+

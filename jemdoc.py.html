@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title></title>
+</head>
+<body>
+<div id="layout-content">
+<p>&ldquo;&rdquo;&ldquo;jemdoc version 0.7.1, 2011-06-14.&rdquo;&ldquo;&rdquo;</p>
+<p>import sys
+import os
+import re
+import time
+import StringIO
+from subprocess import *
+import tempfile</p>
+<p>def info():
+print __doc__
+print 'Platform: &rsquo; <tt> sys.platform </tt> &rsquo;.&rsquo;
+print 'Python: <tt>s, located at </tt>s.&rsquo; % (sys.version<a href=":5">:5</a>, sys.executable)
+print 'Equation support:&rsquo;,
+(supported, message) = testeqsupport()
+if supported:
+print 'yes.&rsquo;
+else:
+print 'no.&rsquo;
+print message</p>
+<p>def testeqsupport():
+supported = True
+msg = &rsquo;&rsquo;
+p = Popen('latex &ndash;version&rsquo;, shell=True, stdout=PIPE, stderr=PIPE)
+rc = p.wait()
+if rc != 0:
+msg <tt>= &rsquo;  latex: not found.<br />&rsquo;
+supported = False
+else:
+msg </tt>= &rsquo;  latex: &rsquo; <tt> p.stdout.readlines()<a href="0">0</a>.rstrip() </tt> &rsquo;.<br />&rsquo;
+p = Popen('dvipng &ndash;version&rsquo;, shell=True, stdout=PIPE, stderr=PIPE)
+rc = p.wait()
+if rc != 0:
+msg <tt>= &rsquo;  dvipng: not found.<br />&rsquo;
+supported = False
+else:
+msg </tt>= &rsquo;  dvipng: &rsquo; <tt> p.stdout.readlines()<a href="0">0</a>.rstrip() </tt> &rsquo;.<br />&rsquo;</p>
+<p>return (supported, msg<a href=":-1">:-1</a>)</p>
+<p>class controlstruct(object):
+def __init__(self, infile, outfile=None, conf=None, inname=None, eqs=True,
+eqdir='eqs&rsquo;, eqdpi=130):
+self.inname = inname
+self.inf = infile
+self.outf = outfile
+self.conf = conf
+self.linenum = 0
+self.otherfiles = <a href=""></a>
+self.eqs = eqs
+self.eqdir = eqdir
+self.eqdpi = eqdpi
+
+self.eqsupport = True
+self.eqcache = True
+self.eqpackages = <a href=""></a>
+self.texlines = <a href=""></a>
+self.analytics = None
+self.eqbd = {}
+self.baseline = None</p>
+<p>def pushfile(self, newfile):
+self.otherfiles.insert(0, self.inf)
+self.inf = open(newfile, 'rb&rsquo;)</p>
+<p>def nextfile(self):
+self.inf.close()
+self.inf = self.otherfiles.pop(0)</p>
+<p>def showhelp():
+a = &ldquo;&rdquo;"Usage: jemdoc <a href="OPTIONS">OPTIONS</a> <a href="SOURCEFILE">SOURCEFILE</a> 
+Produces html markup from a jemdoc SOURCEFILE.</p>
+<p>Most of the time you can use jemdoc without any additional flags.
+For example, typing</p>
+<p>jemdoc index</p>
+<p>will produce an index.html from index.jemdoc, using a default
+configuration.</p>
+<p>Some configuration options can be overridden by specifying a
+configuration file.  You can use</p>
+<p>jemdoc &ndash;show-config</p>
+<p>to print a sample configuration file (which includes all of the
+default options). Any or all of the configuration <a href="blocks">blocks</a> can be
+overwritten by including them in a configuration file, and running,
+for example,</p>
+<p>jemdoc -c mywebsite.conf index.jemdoc </p>
+<p>You can view version and installation details with</p>
+<p>jemdoc &ndash;version</p>
+<p>See http:<i></i>jemdoc.jaboc.net/ for many more details.&ldquo;&rdquo;"
+b = &rsquo;&rsquo;
+for l in a.splitlines(True):
+if l.startswith(&rsquo; &rsquo;*4):
+b <tt>= l<a href="4:">4:</a>
+else:
+b </tt>= l</p>
+<p>print b</p>
+<p>def standardconf():
+a = &ldquo;&rdquo;&ldquo;<a href="firstbit">firstbit</a>
+&lt;!DOCTYPE html PUBLIC &rdquo;-<i></i>W3C<i></i>DTD XHTML 1.1<i></i>EN&ldquo;
+&rdquo;http:<i></i>www.w3.org<i>TR</i>xhtml11<i>DTD</i>xhtml11.dtd&ldquo;&gt;
+&lt;html xmlns=&rdquo;http:<i></i>www.w3.org<i>1999</i>xhtml&ldquo; xml:lang=&rdquo;en&ldquo;&gt;
+&lt;head&gt;
+&lt;meta name=&rdquo;generator&ldquo; content=&rdquo;jemdoc, see http:<i></i>jemdoc.jaboc.net<i>&ldquo; </i>&gt;
+&lt;meta http-equiv=&rdquo;Content-Type&ldquo; content=&rdquo;text<i>html;charset=utf-8" </i>&gt;</p>
+<p><a href="defaultcss">defaultcss</a>
+&lt;link rel=&ldquo;stylesheet&rdquo; href=&ldquo;jemdoc.css&rdquo; type=&ldquo;text<i>css&rdquo; </i>&gt;</p>
+<p><a href="windowtitle">windowtitle</a>
+
+&lt;title&gt;|&lt;/title&gt;</p>
+<p><a href="fwtitlestart">fwtitlestart</a>
+&lt;div id=&ldquo;fwtitle&rdquo;&gt;</p>
+<p><a href="fwtitleend">fwtitleend</a>
+&lt;/div&gt;</p>
+<p><a href="doctitle">doctitle</a>
+
+&lt;div id=&ldquo;toptitle&rdquo;&gt;
+&lt;h1&gt;|&lt;/h1&gt;</p>
+<p><a href="subtitle">subtitle</a>
+&lt;div id=&ldquo;subtitle&rdquo;&gt;|&lt;/div&gt;</p>
+<p><a href="doctitleend">doctitleend</a>
+&lt;/div&gt;</p>
+<p><a href="bodystart">bodystart</a>
+&lt;/head&gt;
+&lt;body&gt;</p>
+<p><a href="analytics">analytics</a>
+&lt;script type=&ldquo;text<i>javascript&rdquo;&gt;
+var gaJsHost = ((&ldquo;https:&rdquo; == document.location.protocol) ? &ldquo;https:</i><i>ssl.&rdquo; : &ldquo;http:</i><i>www.&rdquo;);
+document.write(unescape(&ldquo;<tt>3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'</tt>3E<tt>3C/script</tt>3E&rdquo;));
+&lt;</i>script&gt;
+&lt;script type=&ldquo;text<i>javascript&rdquo;&gt;
+try {
+var pageTracker = _gat._getTracker(&ldquo;|&rdquo;);
+pageTracker._trackPageview();
+} catch(err) {}&lt;</i>script&gt;</p>
+<p><a href="menustart">menustart</a>
+&lt;table summary=&ldquo;Table for page layout.&rdquo; id=&ldquo;tlayout&rdquo;&gt;
+&lt;tr valign=&ldquo;top&rdquo;&gt;
+&lt;td id=&ldquo;layout-menu&rdquo;&gt;</p>
+<p><a href="menuend">menuend</a>
+&lt;/td&gt;
+&lt;td id=&ldquo;layout-content&rdquo;&gt;</p>
+<p><a href="menucategory">menucategory</a>
+&lt;div class=&ldquo;menu-category&rdquo;&gt;|&lt;/div&gt;</p>
+<p><a href="menuitem">menuitem</a>
+&lt;div class=&ldquo;menu-item&rdquo;&gt;&lt;a href=&ldquo;|1&rdquo;&gt;|2&lt;<i>a&gt;&lt;</i>div&gt;</p>
+<p><a href="specificcss">specificcss</a>
+&lt;link rel=&ldquo;stylesheet&rdquo; href=&ldquo;|&rdquo; type=&ldquo;text<i>css&rdquo; </i>&gt;</p>
+<p><a href="specificjs">specificjs</a>
+&lt;script src=&ldquo;|.js&rdquo; type=&ldquo;text<i>javascript&rdquo;&gt;&lt;</i>script&gt;</p>
+<p><a href="currentmenuitem">currentmenuitem</a>
+&lt;div class=&ldquo;menu-item&rdquo;&gt;&lt;a href=&ldquo;|1&rdquo; class=&ldquo;current&rdquo;&gt;|2&lt;<i>a&gt;&lt;</i>div&gt;</p>
+<p><a href="nomenu">nomenu</a>
+&lt;div id=&ldquo;layout-content&rdquo;&gt;</p>
+<p><a href="menulastbit">menulastbit</a>
+&lt;<i>td&gt;
+&lt;</i>tr&gt;
+&lt;/table&gt;</p>
+<p><a href="nomenulastbit">nomenulastbit</a>
+&lt;/div&gt;</p>
+<p><a href="bodyend">bodyend</a>
+&lt;<i>body&gt;
+&lt;</i>html&gt;</p>
+<p><a href="infoblock">infoblock</a>
+&lt;div class=&ldquo;infoblock&rdquo;&gt;</p>
+<p><a href="codeblock">codeblock</a>
+&lt;div class=&ldquo;codeblock&rdquo;&gt;</p>
+<p><a href="blocktitle">blocktitle</a>
+&lt;div class=&ldquo;blocktitle&rdquo;&gt;|&lt;/div&gt;</p>
+<p><a href="infoblockcontent">infoblockcontent</a>
+&lt;div class=&ldquo;blockcontent&rdquo;&gt;</p>
+<p><a href="codeblockcontent">codeblockcontent</a>
+&lt;div class=&ldquo;blockcontent&rdquo;&gt;&lt;pre&gt;</p>
+<p><a href="codeblockend">codeblockend</a>
+&lt;<i>pre&gt;&lt;</i>div&gt;&lt;/div&gt;</p>
+<p><a href="codeblockcontenttt">codeblockcontenttt</a>
+&lt;div class=&ldquo;blockcontent&rdquo;&gt;&lt;tt class=&ldquo;tthl&rdquo;&gt;</p>
+<p><a href="codeblockendtt">codeblockendtt</a>
+&lt;<i>tt&gt;&lt;</i>div&gt;&lt;/div&gt;</p>
+<p><a href="infoblockend">infoblockend</a>
+&lt;<i>div&gt;&lt;</i>div&gt;</p>
+<p><a href="footerstart">footerstart</a>
+&lt;div id=&ldquo;footer&rdquo;&gt;
+&lt;div id=&ldquo;footer-text&rdquo;&gt;</p>
+<p><a href="footerend">footerend</a>
+&lt;<i>div&gt;
+&lt;</i>div&gt;</p>
+<p><a href="lastupdated">lastupdated</a>
+&lt;a href=&ldquo;http:<i></i>www4.ncsu.edu<i>&nbsp;ipapapa</i>&rdquo;&gt;Ioannis Papapanagiotou&lt;/a&gt;</p>
+<p><a href="sourcelink">sourcelink</a>
+(&lt;a href=&ldquo;|&rdquo;&gt;source&lt;/a&gt;)</p>
+<p>&ldquo;&rdquo;"
+
+b = &rsquo;&rsquo;
+for l in a.splitlines(True):
+if l.startswith(&rsquo;  &rsquo;):
+b <tt>= l<a href="2:">2:</a>
+else:
+b </tt>= l</p>
+<p>return b</p>
+<p>class JandalError(Exception):
+pass</p>
+<p>class NoEqSupport(Exception):
+pass</p>
+<p>def raisejandal(msg, line=0):
+if line == 0:
+s = &ldquo;<tt>s" </tt> msg
+else:
+s = &rdquo;line <tt>d: </tt>s" % (line, msg)
+raise JandalError(s)</p>
+<p>def readnoncomment(f):
+l = f.readline()
+if l == &rsquo;&rsquo;:
+return l
+elif l<a href="0">0</a> == &rsquo;
+return readnoncomment(f)
+else:
+return l.rstrip() + &rsquo;<br />&rsquo;</p>
+<p>def parseconf(cns):
+syntax = {}
+warn = False
+
+fs = <a href="StringIO.StringIO(standardconf())">StringIO.StringIO(standardconf())</a>
+for sname in cns:
+fs.append(open(sname, 'rb&rsquo;))</p>
+<p>for f in fs:
+while pc(controlstruct(f)) != &rsquo;&rsquo;:
+l = readnoncomment(f)
+r = re.match(r&rsquo;[(.*)]<br />&rsquo;, l)</p>
+<p>if r:
+tag = r.group(1)</p>
+<p>s = &rsquo;&rsquo;
+l = readnoncomment(f)
+while l not in (&rsquo;<br />&rsquo;, &rsquo;&rsquo;):
+s += l
+l = readnoncomment(f)</p>
+<p>syntax<a href="tag">tag</a> = s</p>
+<p>f.close()</p>
+<p>return syntax</p>
+<p>def insertmenuitems(f, mname, current, prefix):
+m = open(mname, 'rb&rsquo;)
+while pc(controlstruct(m)) != &rsquo;&rsquo;:
+l = readnoncomment(m)
+l = l.strip()
+if l == &rsquo;&rsquo;:
+continue</p>
+<p>r = re.match(r&rsquo;s<b>(.</b>?)s<b>[(.</b>)]&rsquo;, l)</p>
+<p>if r:
+link = r.group(2)
+
+if &rsquo;:<i></i>&rsquo; not in r.group(2):
+link = prefix + allreplace(link)</p>
+<p>menuitem = re.sub(r&rsquo;(?&lt;!
+) +&rsquo;, &rsquo;&nbsp;&rsquo;, r.group(1))</p>
+<p>if r.group(2) == current: 
+hb(f.outf, f.conf<a href="'currentmenuitem'">'currentmenuitem'</a>, link, br(menuitem, f))
+else:
+hb(f.outf, f.conf<a href="'menuitem'">'menuitem'</a>, link, br(menuitem, f))</p>
+<p>else:
+hb(f.outf, f.conf<a href="'menucategory'">'menucategory'</a>, br(l, f))</p>
+<p>m.close()</p>
+<p>def out(f, s):
+f.write(s)</p>
+<p>def hb(f, tag, content1, content2=None):
+&ldquo;&rdquo;&ldquo;Writes out a halfblock (hb).&rdquo;&ldquo;&rdquo;</p>
+<p>if content1 is None:
+content1 = &ldquo;&rdquo;</p>
+<p>if content2 is None:
+out(f, re.sub(r&rsquo;|&rsquo;, content1, tag))
+else:
+r = re.sub(r&rsquo;|1&rsquo;, content1, tag)
+r = re.sub(r&rsquo;|2&rsquo;, content2, r)
+out(f, r)</p>
+<p>def pc(f, ditchcomments=True):
+&ldquo;&rdquo;&ldquo;Peeks at next character in the file.&rdquo;&ldquo;&rdquo;
+
+c = f.inf.read(1)
+if c:
+if ditchcomments and c == &rsquo;
+l = nl(f)
+if doincludes(f, l):
+return "</p>
+<p>if c in &rsquo; t&rsquo;:
+return pc(f)</p>
+<p>if c == '\&rsquo;:
+c += pc(f)</p>
+<p>f.inf.seek(-1, 1)
+elif f.otherfiles:
+f.nextfile()
+return pc(f, ditchcomments)</p>
+<p>return c</p>
+<p>def doincludes(f, l):
+ir = 'includeraw{&rsquo;
+i = 'include{&rsquo;
+if l.startswith(ir):
+nf = open(l<a href="len(ir):-2">len(ir):-2</a>, 'rb&rsquo;)
+f.outf.write(nf.read())
+nf.close()
+elif l.startswith(i):
+f.pushfile(l<a href="len(i):-2">len(i):-2</a>)
+else:
+return False</p>
+<p>return True</p>
+<p>def nl(f, withcount=False, codemode=False):
+&ldquo;&rdquo;&ldquo;Get input file line.&rdquo;&ldquo;&rdquo;
+s = f.inf.readline()
+if not s and f.otherfiles:
+f.nextfile()
+return nl(f, withcount, codemode)</p>
+<p>f.linenum += 1</p>
+<p>if not codemode:
+
+
+
+s = s.lstrip(&rsquo; t&rsquo;)
+s = re.sub(r&rsquo;s*(?&lt;!\)</p>
+<p>if withcount:
+if s<a href="0">0</a> == &rsquo;.&rsquo;:
+m = r&rsquo;.&rsquo;
+else:
+m = s<a href="0">0</a></p>
+<p>r = re.match(&rsquo;(<tt>s+) ' </tt> m, s)
+if not r:
+raise SyntaxError(&ldquo;couldn't handle the jandal (code 12039) on line&rdquo;
+" <tt>d" </tt> f.linenum)</p>
+<p>if not codemode:
+s = s.lstrip(&rsquo;-.=:&rsquo;)</p>
+<p>return (s, len(r.group(1)))
+else:
+if not codemode:
+s = s.lstrip(&rsquo;-.=:&rsquo;)</p>
+<p>return s</p>
+<p>def np(f, withcount=False, eatblanks=True):
+&ldquo;&rdquo;&ldquo;Gets the next paragraph from the input file.&rdquo;&ldquo;&rdquo;
+
+if withcount:
+(s, c) = nl(f, withcount)
+else:
+s = nl(f)</p>
+<p>while pc(f) not in (&rsquo;<br />&rsquo;, &rsquo;-&rsquo;, &rsquo;.&rsquo;, &rsquo;:&rsquo;, &rsquo;&rsquo;, &rsquo;=&rsquo;, &rsquo;&nbsp;&rsquo;, &rsquo;{&rsquo;, '\(&rsquo;, '\)&rsquo;):
+s += nl(f)</p>
+<p>while eatblanks and pc(f) == &rsquo;<br />&rsquo;:
+nl(f)</p>
+<p>if withcount:
+return (s<a href=":-1">:-1</a>, c)
+else:
+return s<a href=":-1">:-1</a></p>

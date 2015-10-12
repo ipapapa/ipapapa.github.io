@@ -1,0 +1,22 @@
+Incude Pages 
+
+You'll find a number of pages in the includes folder - to make site-wide changes, open one of the pages, modify the information and then save.  
+If for example you need to add more news sections, go to Insert>Component>Include Page and browse to the file you need to include.
+You can of course copy and paste the information into the space where the include page is located if you prefer, or delete the include entirely.
+For more information, take a look at www.thetemplatestore.com/tutorials/fp_includes.asp
+
+Graphics
+
+The template comes with a .png for the company name, buttons, left graphic, welcome image and top separators for you to modify in Fireworks. These can be found in the extra images folder.
+There are also blank gifs if you don't use Fireworks
+The TTS logo is just there as a placeholder and should be replaced with one of your own.
+The font for the company name is Bauhaus Md BT size 30
+The font for the welcome gif is Bauhaus Md BT size 22
+
+CSS
+
+The template uses Cascading Style Sheets to determine the text size, colour and hyperlink properties. These can be edited by double clicking on the file style.css.
+
+Customization 
+
+You can probably make all the changes you need to this template yourself but if you require any custom work or professional help, please contact Andy at andy@ibswebdesign.com and he'll send you a quote for the work you require.
