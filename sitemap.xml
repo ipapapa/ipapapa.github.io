@@ -7,15 +7,14 @@
 </url>
 
 <url>
-  <loc>http://ipapapa.github.io/research.html</loc>
-</url>
-
-<url>
   <loc>http://ipapapa.github.io/teach.html</loc>
 </url>
 
 <url>
   <loc>http://ipapapa.github.io/teach/cloudCourse.html</loc>
+</url>
+<url>
+  <loc>http://ipapapa.github.io/teach/IoTCourse.html</loc>
 </url>
 
 <url>
@@ -89,6 +88,35 @@
 
 <url>
   <loc>http://ipapapa.github.io/Files/WiMAX_scheduler.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/cloud2016.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/icc2017_cloud.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/icc2015.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/cloudnet2014.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/icc2017_iot.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/IEEEIOT2015.pdf</loc>
+</url>
+
+
+<url>
+  <loc>http://ipapapa.github.io/Files/mybib.bib</loc>
 </url>
 
 <url>
