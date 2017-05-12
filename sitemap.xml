@@ -2,6 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <!-- created by Ioannis Papapanagiotou -->
 
+
+<!-- Main HTML -->
 <url>
   <loc>http://ipapapa.github.io/index.html</loc>
 </url>
@@ -37,6 +39,8 @@
   <loc>http://ipapapa.github.io/students.html</loc>
 </url>
 
+
+<!-- Files -->
 <url>
   <loc>http://ipapapa.github.io/Files/WiMAXsurvey.pdf</loc>
 </url>
@@ -78,6 +82,8 @@
 </url>
 
 
+
+
 <url>
   <loc>http://ipapapa.github.io/Files/imc12.pdf</loc>
 </url>
@@ -91,7 +97,48 @@
 </url>
 
 <url>
+  <loc>http://ipapapa.github.io/Files/cloudnet2014.pdf</loc>
+</url>
+
+
+
+
+<!-- 2015 -->
+<url>
+  <loc>http://ipapapa.github.io/Files/icc2015.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/globecom2015.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/milcom2015.pdf</loc>
+</url>
+
+
+<!-- 2016 -->
+<url>
+  <loc>http://ipapapa.github.io/Files/IEEEIOT2015.pdf</loc>
+</url>
+
+<url>
   <loc>http://ipapapa.github.io/Files/cloud2016.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/cloudcom2016.pdf</loc>
+</url>
+
+<url>
+  <loc>http://ipapapa.github.io/Files/Perimetron2016.pdf</loc>
+</url>
+
+
+<!-- 2017 -->
+
+<url>
+  <loc>http://ipapapa.github.io/Files/icc2017_iot.pdf</loc>
 </url>
 
 <url>
@@ -99,22 +146,17 @@
 </url>
 
 <url>
-  <loc>http://ipapapa.github.io/Files/icc2015.pdf</loc>
+  <loc>http://ipapapa.github.io/Files/cloud2017.pdf</loc>
 </url>
 
 <url>
-  <loc>http://ipapapa.github.io/Files/cloudnet2014.pdf</loc>
-</url>
-
-<url>
-  <loc>http://ipapapa.github.io/Files/icc2017_iot.pdf</loc>
-</url>
-
-<url>
-  <loc>http://ipapapa.github.io/Files/IEEEIOT2015.pdf</loc>
+  <loc>http://ipapapa.github.io/Files/ICACON_2017.pdf</loc>
 </url>
 
 
+
+
+<!-- Additional Research -->
 <url>
   <loc>http://ipapapa.github.io/Files/mybib.bib</loc>
 </url>
@@ -122,5 +164,8 @@
 <url>
   <loc>http://ipapapa.github.io/Files/ResearchStatementIoannis.pdf</loc>
 </url>
+
+
+
 
 </urlset>
