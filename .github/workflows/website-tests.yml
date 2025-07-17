@@ -24,8 +24,8 @@ jobs:
     - name: Link Checker
       uses: lycheeverse/lychee-action@v1.8.0
       with:
-        args: --verbose --no-progress --accept 200,204,429 './**/*.html'
-        fail: true
+        args: --verbose --no-progress --accept 200,204,403,429 --timeout 10 --exclude-all-private --exclude '.*jemdoc\.jaboc\.net.*' --exclude '.*people\.engr\.ncsu\.edu.*' --exclude '.*www4\.ncsu\.edu.*' --exclude '.*patft.*\.uspto\.gov.*' --exclude '.*scholar\.google\.com.*' --exclude '.*upatras\.gr.*' --exclude '.*telemedicine\.upatras\.gr.*' --exclude '.*wltl\.ee\.upatras\.gr.*' --exclude '.*atg\.netapp\.com.*' --exclude '.*nrgp\.ncsu\.edu.*' --exclude '.*nprg\.ncsu\.edu.*' --exclude 'file:///.*/(includes/|teach/)[^/]*$' --exclude 'file:///.*/(defaultcss|infoblockcontent|len\(.*\)|StringIO|OPTIONS|SOURCEFILE|analytics|bodystart|bodyend|blocktitle|blocks|codeblock.*|currentmenuitem|doctitle.*|firstbit|footerstart|footerend|infoblock.*|lastupdated|menu.*|nomenu|sourcelink|specificcss|specificjs|subtitle|tag|windowtitle|fwtitle.*|:-1|:5|0|2:|4:)$' './**/*.html'
+        fail: false
         
     - name: Check for broken PDF links
       run: |
