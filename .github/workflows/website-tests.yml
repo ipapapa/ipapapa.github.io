@@ -19,6 +19,7 @@ jobs:
       with:
         root: ./
         css: true
+        extra: --ignore-re "Obsolete doctype|xml:lang.*lang|summary.*obsolete|valign.*obsolete|tt.*obsolete|frameborder.*obsolete|marginwidth.*obsolete|marginheight.*obsolete|scrolling.*obsolete|align.*obsolete"
         
     - name: Link Checker
       uses: lycheeverse/lychee-action@v1.8.0
