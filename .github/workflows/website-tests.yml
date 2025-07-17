@@ -1,0 +1,109 @@
+name: Website Tests
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: HTML5 Validation
+      uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+      with:
+        root: ./
+        css: true
+        
+    - name: Link Checker
+      uses: lycheeverse/lychee-action@v1.8.0
+      with:
+        args: --verbose --no-progress --accept 200,204,429 './**/*.html'
+        fail: true
+        
+    - name: Check for broken PDF links
+      run: |
+        echo "Checking for missing PDF files referenced in HTML..."
+        for file in *.html includes/*.html teach/*.html; do
+          if [ -f "$file" ]; then
+            echo "Checking $file..."
+            # Extract PDF links and check if files exist
+            grep -oP 'href="[^"]*\.pdf"' "$file" | sed 's/href="//;s/"//' | while read -r link; do
+              if [[ "$link" =~ ^http ]]; then
+                echo "  External PDF: $link (skipping local check)"
+              elif [ ! -f "$link" ]; then
+                echo "  ERROR: Missing PDF file: $link"
+                exit 1
+              else
+                echo "  OK: $link"
+              fi
+            done
+          fi
+        done
+        
+    - name: Check for missing image files
+      run: |
+        echo "Checking for missing image files..."
+        for file in *.html includes/*.html teach/*.html; do
+          if [ -f "$file" ]; then
+            echo "Checking images in $file..."
+            # Extract image src attributes
+            grep -oP 'src="[^"]*\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)"' "$file" | sed 's/src="//;s/"//' | while read -r img; do
+              if [[ "$img" =~ ^http ]]; then
+                echo "  External image: $img (skipping local check)"
+              elif [ ! -f "$img" ]; then
+                echo "  ERROR: Missing image file: $img"
+                exit 1
+              else
+                echo "  OK: $img"
+              fi
+            done
+          fi
+        done
+        
+    - name: Check HTML structure consistency
+      run: |
+        echo "Checking HTML structure consistency..."
+        # Check if all HTML files have proper DOCTYPE
+        for file in *.html includes/*.html teach/*.html; do
+          if [ -f "$file" ]; then
+            if ! grep -q "<!DOCTYPE" "$file"; then
+              echo "ERROR: $file is missing DOCTYPE declaration"
+              exit 1
+            fi
+          fi
+        done
+        
+        # Check for consistent navigation menu
+        echo "Checking navigation menu consistency..."
+        menu_items=("index.html" "publication.html" "patents.html" "teach.html" "experience.html" "awards.html" "service.html" "talks.html" "students.html")
+        
+        for file in *.html; do
+          if [ -f "$file" ] && [ "$file" != "other.html" ]; then
+            for item in "${menu_items[@]}"; do
+              if ! grep -q "href=\"$item\"" "$file"; then
+                echo "WARNING: $file may be missing navigation link to $item"
+              fi
+            done
+          fi
+        done
+        
+    - name: Check for potential security issues
+      run: |
+        echo "Checking for potential security issues..."
+        # Check for any potential XSS vulnerabilities (basic check)
+        if grep -r "javascript:" *.html includes/*.html teach/*.html 2>/dev/null; then
+          echo "WARNING: Found javascript: URLs which could be security risks"
+        fi
+        
+        # Check for any embedded scripts
+        if grep -r "<script" *.html includes/*.html teach/*.html 2>/dev/null; then
+          echo "INFO: Found embedded scripts - review for security"
+        fi
+        
+        echo "Security check completed"
