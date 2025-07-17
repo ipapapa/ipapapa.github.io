@@ -53,15 +53,28 @@ jobs:
         for file in *.html includes/*.html teach/*.html; do
           if [ -f "$file" ]; then
             echo "Checking images in $file..."
+            # Get the directory of the current file
+            dir=$(dirname "$file")
             # Extract image src attributes
             grep -oP 'src="[^"]*\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)"' "$file" | sed 's/src="//;s/"//' | while read -r img; do
               if [[ "$img" =~ ^http ]]; then
                 echo "  External image: $img (skipping local check)"
-              elif [ ! -f "$img" ]; then
-                echo "  ERROR: Missing image file: $img"
-                exit 1
               else
-                echo "  OK: $img"
+                # Resolve relative path based on the file's directory
+                if [[ "$img" =~ ^/ ]]; then
+                  # Absolute path
+                  img_path="$img"
+                else
+                  # Relative path - resolve relative to the file's directory
+                  img_path="$dir/$img"
+                fi
+                
+                if [ ! -f "$img_path" ]; then
+                  echo "  ERROR: Missing image file: $img_path (referenced as $img in $file)"
+                  exit 1
+                else
+                  echo "  OK: $img_path"
+                fi
               fi
             done
           fi
